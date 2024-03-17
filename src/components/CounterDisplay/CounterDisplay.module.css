@@ -1,0 +1,29 @@
+.counterDisplay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.timeBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 7rem;
+  padding: 1rem 1.8rem;
+  border-radius: 1rem;
+  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
+  background-image: linear-gradient(to bottom left, #44b1bf, #9b10b7);
+}
+
+.timeBlock p {
+  font-weight: bolder;
+  color: #b187ba;
+}
+
+.timerEnd {
+  font-size: 1.5  rem;
+  font-weight: 700;
+  color: rgb(233, 233, 0);
+}

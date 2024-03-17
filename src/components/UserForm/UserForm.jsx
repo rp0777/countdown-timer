@@ -55,7 +55,11 @@ const UserForm = ({
    */
 
   const toggleTimer = () => {
-    setCountdownTimer(!countdownTimer);
+    if (!inputDate) {
+      alert("Please select a date!");
+    } else {
+      setCountdownTimer(!countdownTimer);
+    }
   };
 
   return (

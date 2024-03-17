@@ -22,7 +22,13 @@ const Home = () => {
       />
 
       {/* Counter Display */}
-      <CounterDisplay countdownTimer={countdownTimer} />
+      {
+        <CounterDisplay
+          inputDate={inputDate}
+          countdownTimer={countdownTimer}
+          setCountdownTimer={setCountdownTimer}
+        />
+      }
     </div>
   );
 };
