@@ -5,3 +5,12 @@
   align-items: center;
   gap: 2rem;
 }
+
+.heading {
+  filter: drop-shadow(0 0 3px rgb(206, 223, 11));
+}
+
+#subHeading {
+  color: rgb(22, 7, 81);
+  font-weight: 900;
+}

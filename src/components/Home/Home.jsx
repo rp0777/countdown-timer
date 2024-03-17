@@ -5,7 +5,9 @@ import styles from "./Home.module.css";
 const Home = () => {
   return (
     <div className={styles.home}>
-      <h1>Heading</h1>
+      <h1 className={styles.heading}>
+        Countdown <span id={styles.subHeading}>Timer</span>
+      </h1>
 
       {/* User Input Form */}
       <UserForm />
