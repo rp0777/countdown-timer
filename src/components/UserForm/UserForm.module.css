@@ -1,0 +1,31 @@
+.userForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userFormItems {
+  background-color: transparent;
+  border: 3px solid white;
+  border-radius: 0.5rem;
+  padding: 0.8rem;
+  font-size: large;
+  color: white;
+}
+
+.userForm input:focus {
+  outline: none;
+}
+
+#startButton {
+  width: 10rem;
+  padding: 0.8rem 1.8rem !important;
+  font-size: medium !important;
+  cursor: pointer;
+}
+
+#startButton:hover {
+  background-image: linear-gradient(to right, #15378e, #9b10b7);
+}

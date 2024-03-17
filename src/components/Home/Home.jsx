@@ -1,8 +1,12 @@
+import { useState } from "react";
 import CounterDisplay from "../CounterDisplay/CounterDisplay";
 import UserForm from "../UserForm/UserForm";
 import styles from "./Home.module.css";
 
 const Home = () => {
+  const [inputDate, setInputDate] = useState("");
+  const [countdownTimer, setCountdownTimer] = useState(false);
+
   return (
     <div className={styles.home}>
       <h1 className={styles.heading}>
@@ -10,12 +14,24 @@ const Home = () => {
       </h1>
 
       {/* User Input Form */}
-      <UserForm />
+      <UserForm
+        inputDate={inputDate}
+        setInputDate={setInputDate}
+        countdownTimer={countdownTimer}
+        setCountdownTimer={setCountdownTimer}
+      />
 
       {/* Counter Display */}
-      <CounterDisplay />
+      <CounterDisplay countdownTimer={countdownTimer} />
     </div>
   );
 };
 
 export default Home;
+
+// Validations for input
+// 1.   The maximum days for the countdown timer should be 99 days.
+// 2.   The maximum hours for the countdown timer should be 23 hours
+// 3.   The maximum minutes for the countdown timer should be 59 minutes
+// 4.   The maximum seconds for the countdown timer should be 59 seconds
+// 5.   The cut-off date for the date picker should be 99 days from the current date

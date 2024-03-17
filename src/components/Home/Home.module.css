@@ -8,6 +8,7 @@
 
 .heading {
   filter: drop-shadow(0 0 3px rgb(206, 223, 11));
+  font-size: 3rem;
 }
 
 #subHeading {
