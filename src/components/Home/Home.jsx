@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Spline from "@splinetool/react-spline";
 import CounterDisplay from "../CounterDisplay/CounterDisplay";
 import UserForm from "../UserForm/UserForm";
 import styles from "./Home.module.css";
@@ -9,6 +10,11 @@ const Home = () => {
 
   return (
     <div className={styles.home}>
+      <Spline
+        className={styles.timerLogo}
+        scene="https://prod.spline.design/zVXmPJIVb9b5RCTH/scene.splinecode"
+      />
+
       <h1 className={styles.heading}>
         Countdown <span id={styles.subHeading}>Timer</span>
       </h1>

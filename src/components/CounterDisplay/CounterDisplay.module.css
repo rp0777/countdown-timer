@@ -23,7 +23,26 @@
 }
 
 .timerEnd {
-  font-size: 1.5  rem;
+  font-size: 1.5 rem;
   font-weight: 700;
   color: rgb(233, 233, 0);
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 479px) {
+  .counterDisplay {
+    gap: 0.6rem;
+  }
+
+  .timeBlock {
+    width: 5rem !important;
+    height: 4rem !important;
+  }
+
+  .timeBlock h1 {
+    font-size: 1.5rem;
+  }
+
+  .timeBlock p {
+    font-size: 0.75rem;
+  }
 }
