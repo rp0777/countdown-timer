@@ -1,11 +1,14 @@
+import { RecoilRoot } from "recoil";
 import "./App.css";
 import Home from "./components/Home/Home";
 
 function App() {
   return (
-    <div className="app">
-      <Home />
-    </div>
+    <RecoilRoot>
+      <div className="app">
+        <Home />
+      </div>
+    </RecoilRoot>
   );
 }
 

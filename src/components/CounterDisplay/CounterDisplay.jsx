@@ -1,7 +1,11 @@
-import { useState, useEffect } from "react";
+import { Fragment, useState, useEffect } from "react";
 import styles from "./CounterDisplay.module.css";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { countdownTimerState, inputDateState } from "../../store/atoms";
 
-const CounterDisplay = ({ inputDate, countdownTimer, setCountdownTimer }) => {
+import notificationSound from "/timerEnd.mp3";
+
+const CounterDisplay = () => {
   const defaultCountdown = {
     days: 0,
     hours: 0,
@@ -9,8 +13,14 @@ const CounterDisplay = ({ inputDate, countdownTimer, setCountdownTimer }) => {
     seconds: 0,
   };
 
+  const inputDate = useRecoilValue(inputDateState);
+  const [countdownTimer, setCountdownTimer] =
+    useRecoilState(countdownTimerState);
+
   const [countdown, setCountdown] = useState(defaultCountdown);
   const [timerEnds, setTimerEnds] = useState(false);
+
+  const audio = new Audio(notificationSound);
 
   /**
    * Calculates the countdown based on the input date
@@ -57,14 +67,21 @@ const CounterDisplay = ({ inputDate, countdownTimer, setCountdownTimer }) => {
     }
   }, [countdownTimer]);
 
+  useEffect(() => {
+    if (timerEnds) {
+      audio.play();
+    }
+  }, [timerEnds]);
+
   return (
     <div className={styles.counterDisplay}>
       {timerEnds ? (
         <p className={styles.timerEnd}>
-          🎉 The countdown is over! What's next on your adventure? 🎉
+          🎉 The countdown is over! <br></br> What&apos;s next on your
+          adventure? 🎉
         </p>
       ) : (
-        <>
+        <Fragment>
           {countdown.days !== 0 && (
             <div className={styles.timeBlock}>
               <h1>{countdown.days}</h1>
@@ -89,7 +106,7 @@ const CounterDisplay = ({ inputDate, countdownTimer, setCountdownTimer }) => {
               <p>Seconds</p>
             </div>
           )}
-        </>
+        </Fragment>
       )}
     </div>
   );

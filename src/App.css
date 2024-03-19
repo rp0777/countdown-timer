@@ -2,10 +2,24 @@
 
 .app {
   height: 100vh;
-  background-image: linear-gradient(to bottom left, rgb(219, 78, 102), #0f31f2);
+  background: url("/bgpic.jpg");
+  background-size: 120% 120%;
+  animation: color 10s ease-in-out infinite;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: "Roboto";
   color: white;
+}
+
+@keyframes color {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
 }

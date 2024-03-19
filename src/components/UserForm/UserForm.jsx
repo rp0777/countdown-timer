@@ -1,14 +1,43 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { inputDateState, countdownTimerState } from "../../store/atoms";
 import styles from "./UserForm.module.css";
 
-const UserForm = ({
-  inputDate,
-  setInputDate,
-  countdownTimer,
-  setCountdownTimer,
-}) => {
-  const maxDate = new Date();
-  maxDate.setDate(maxDate.getDate() + 30); // Set the maximum date (e.g., 30 days from today)
+const UserForm = () => {
+  const [inputDate, setInputDate] = useRecoilState(inputDateState);
+  const [countdownTimer, setCountdownTimer] =
+    useRecoilState(countdownTimerState);
+
+  // Setting the present date to set min date as persent date
+  let presentDate = new Date();
+  presentDate = presentDate.toISOString().split("T")[0];
+
+  // Setting Date limit max upto 100 days from the present date
+  let maxDate = new Date();
+  maxDate.setDate(maxDate.getDate() + 100);
+  maxDate = maxDate.toISOString().split("T")[0];
+
+  // if there exists inputDate or countdownTimer in localStorage
+  // then setInputDate to stored inputDate and setCountdownTimer to stored countdownTimer
+  useEffect(() => {
+    const storedInputDate = localStorage.getItem("inputDate");
+    if (storedInputDate) {
+      setInputDate(storedInputDate);
+    }
+
+    const storedCountdownTimer = localStorage.getItem("countdownTimer");
+    if (storedCountdownTimer) {
+      setCountdownTimer(storedCountdownTimer === "true");
+    }
+  }, [setInputDate, setCountdownTimer]);
+
+  // useEffect(() => {
+  //   if (!countdownTimer) {
+  //     // Reset input date when countdown timer is canceled
+  //     setInputDate(""); // Reset input date to empty string
+  //     localStorage.removeItem("inputDate"); // Remove input date from localStorage
+  //   }
+  // }, [countdownTimer, setInputDate]);
 
   /**
    * Validates the input date to ensure it's not more than 100 days from the current date
@@ -44,21 +73,32 @@ const UserForm = ({
     const isValid = validateInput(input);
 
     if (isValid) {
-      setInputDate(event.target.value);
+      setInputDate(input);
+      localStorage.setItem("inputDate", input);
     }
   };
 
   /**
    * Toggles the countdown timer state between active and inactive
    *
-   * This function toggles the state of the countdown timer. If the countdown timer is currently active, it will be deactivated, and vice versa. This is done to add start and cancel timer feature.
+   * This function toggles the state of the countdown timer. If the countdown timer is currently active, it will be deactivated, and vice versa.
+   * If the countdown timer is being deactivated, it also resets the input date to an empty string and removes both the countdownTimer and inputDate values from localStorage.
+   * This function adds start and cancel timer feature to the application.
    */
 
   const toggleTimer = () => {
     if (!inputDate) {
       alert("Please select a date!");
     } else {
-      setCountdownTimer(!countdownTimer);
+      if (countdownTimer) {
+        setCountdownTimer(false);
+        setInputDate(""); // Reset input date
+        localStorage.removeItem("countdownTimer"); // Remove countdownTimer from localStorage
+        localStorage.removeItem("inputDate"); // Remove inputDate from localStorage
+      } else {
+        setCountdownTimer(true);
+        localStorage.setItem("countdownTimer", true); // Store countdownTimer in localStorage
+      }
     }
   };
 
@@ -69,7 +109,8 @@ const UserForm = ({
         className={styles.userFormItems}
         type="datetime-local"
         name="input date"
-        max={maxDate.toISOString().split("T")[0]} // Convert the date to ISO format and set it as the max attribute
+        min={`${presentDate} 00:00:00`}
+        max={`${maxDate} 00:00:00`}
         value={inputDate}
         onChange={handleInputChange}
       />
